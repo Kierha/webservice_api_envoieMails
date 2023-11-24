@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+      - EMAIL_HOST=mailhog
+      - EMAIL_PORT=1025
+    depends_on:
+      - rabbitmq
+      - mailhog
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
